@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .tbody-tr-responsive {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        function tabletodiv() {
+            $("table").each(function () {
+                var tableHeaders = [];
+                var tableBody = [];
+                var tableDataByColumns = [];
+
+                var thead_tr = $(this).find("thead tr");
+                var c = 0;
+                thead_tr.each(function () {
+                    var headerArr = new Array();
+                    $(this).children().each(function () {
+                        headerArr.push($(this).html());
+
+                        if (c == 0) {
+                            var dataColumn = new Array();
+                            tableDataByColumns.push(dataColumn);
+                        }
+                    });
+                    tableHeaders.push(headerArr);
+                    c++;
+                });
+
+                var tbody_tr = $(this).find("tbody tr");
+                tbody_tr.each(function () {
+                    var bodyArr = new Array();
+                    $(this).children().each(function () {
+                        bodyArr.push($(this).html());
+                    });
+                    tableBody.push(bodyArr);
+                });
+
+                for (var i = 0; i < tableHeaders.length; i++) {
+                    for (var j = 0; j < tableHeaders[i].length; j++) {
+                        tableDataByColumns[j].push(tableHeaders[i][j]);
+                    }
+                }
+
+                for (var i = 0; i < tableBody.length; i++) {
+                    for (var j = 0; j < tableBody[i].length; j++) {
+                        tableDataByColumns[j].push(tableBody[i][j]);
+                    }
+                }
+
+                var tableDivScript = "<div class='ttable-responsive'>";
+                for (var i = 0; i < tableDataByColumns.length; i++) {
+                    tableDivScript = tableDivScript + "<div class='tbody-tr-responsive'>";
+                    for (var j = 0; j < tableDataByColumns[i].length; j++) {
+                        tableDivScript = tableDivScript + "<div class='tbody-td-responsive'>" + tableDataByColumns[i][j] + "</div>";
+                    }
+                    tableDivScript = tableDivScript + "</div>";
+                }
+
+                tableDivScript = tableDivScript + "</div>";
+                $(tableDivScript).insertAfter($(this));
+            });
+        }
+
+        $(function () {
+            tabletodiv();
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <table class="main-table" border="1">
+            <thead>
+                <tr>
+                    <th>Header Fixed 1</th>
+                    <th>Header Fixed 11</th>
+                    <th>Header Fixed 12</th>
+                    <th>Header Fixed 13</th>
+                    <th>Header Fixed 14</th>
+                </tr>
+                <tr>
+                    <th>Header Fixed 1 - 2</th>
+                    <th>Header Fixed 11 - 2</th>
+                    <th>Header Fixed 12 - 2</th>
+                    <th>Header Fixed 13 - 2</th>
+                    <th>Header Fixed 14 - 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>First top Column</th>
+                    <th>Second top Column</th>
+                    <th>Third top Column</th>
+                    <th>Forth top Column</th>
+                    <th>Five top Column</th>
+                </tr>
+                <tr>
+                    <th>First top Column</th>
+                    <th>Second top Column</th>
+                    <th>Third top Column</th>
+                    <th>Forth top Column</th>
+                    <th>Five top Column</th>
+                </tr>
+                <tr>
+                    <th>First top Column</th>
+                    <th>Second top Column</th>
+                    <th>Third top Column</th>
+                    <th>Forth top Column</th>
+                    <th>Five top Column</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
